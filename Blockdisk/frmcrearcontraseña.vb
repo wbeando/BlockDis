@@ -2,14 +2,20 @@
 
 #Region "Asignar contraseña"
 
-    Private Sub RegistrarContra()
-        If txtconfcontraseña.Text = txtconfcontraseña.Text or Then
+    Sub RegistrarContra()
+        If txtcontraseña.Text.CompareTo(txtconfcontraseña.Text) = 0 Then 'COMPARA LAS CADENAS DE TEXTO DE CONTRASEÑA Y CONFIRMAR CONTRASEÑA
             txtconfcontraseña.BackColor = Color.LightYellow
             txtcontraseña.BackColor = Color.LightYellow
         Else
             txtconfcontraseña.BackColor = Color.Red
             txtcontraseña.BackColor = Color.Red
         End If
+
+        'If txtconfcontraseña.Text = txtconfcontraseña.Text Then
+
+        'Else
+
+        'End If
 
     End Sub
 #End Region
@@ -24,7 +30,7 @@
 
     Private Sub btnAceptar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAceptar.Click
         'CrearRegApp()
-
+        RegistrarContra()
         MsgBox("Aun esta en desarrollo ^^")
     End Sub
 
