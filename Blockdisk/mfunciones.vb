@@ -8,6 +8,7 @@ Module mfunciones
     Public vValorCD As Integer = My.Computer.Registry.GetValue("HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\cdrom", "start", Nothing)
 
     ' Se reasigna los nuevos valores despues de la actualización
+    ' TIENE QUE SER REVISADO. POSIBLEMENTE TOME LOS VALORES DE LA VERIFICACION DEL ARCHIVO
     Public Sub Reasignarvalores()
         vValorUSB = My.Computer.Registry.GetValue("HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\USBSTOR", "start", Nothing)
         vValorCD = My.Computer.Registry.GetValue("HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\cdrom", "start", Nothing)
@@ -19,7 +20,6 @@ Module mfunciones
     Private myKey As String '= "MyKey2012" 'Clave secreta(puede alterarse)
 
     'Funcion para el Encriptado de Cadenas de Texto
-
     Private Function Encriptar(ByVal texto As String) As String
 
         If Trim(texto) = "" Then
