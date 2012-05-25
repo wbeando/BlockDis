@@ -25,8 +25,8 @@ Partial Class frmcrearcontraseña
         Me.lblmensaje = New System.Windows.Forms.Label()
         Me.lblcontraseña = New System.Windows.Forms.Label()
         Me.lblconfcontraseña = New System.Windows.Forms.Label()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.txtcontraseña = New System.Windows.Forms.TextBox()
+        Me.txtconfcontraseña = New System.Windows.Forms.TextBox()
         Me.btnAceptar = New System.Windows.Forms.Button()
         Me.btnCancelar = New System.Windows.Forms.Button()
         Me.SuspendLayout()
@@ -62,21 +62,21 @@ Partial Class frmcrearcontraseña
         Me.lblconfcontraseña.TabIndex = 2
         Me.lblconfcontraseña.Text = "Confirmar Contraseña:"
         '
-        'TextBox1
+        'txtcontraseña
         '
-        Me.TextBox1.Location = New System.Drawing.Point(99, 57)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
-        Me.TextBox1.Size = New System.Drawing.Size(164, 20)
-        Me.TextBox1.TabIndex = 3
+        Me.txtcontraseña.Location = New System.Drawing.Point(99, 57)
+        Me.txtcontraseña.Name = "txtcontraseña"
+        Me.txtcontraseña.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
+        Me.txtcontraseña.Size = New System.Drawing.Size(164, 20)
+        Me.txtcontraseña.TabIndex = 3
         '
-        'TextBox2
+        'txtconfcontraseña
         '
-        Me.TextBox2.Location = New System.Drawing.Point(99, 98)
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
-        Me.TextBox2.Size = New System.Drawing.Size(164, 20)
-        Me.TextBox2.TabIndex = 4
+        Me.txtconfcontraseña.Location = New System.Drawing.Point(99, 98)
+        Me.txtconfcontraseña.Name = "txtconfcontraseña"
+        Me.txtconfcontraseña.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
+        Me.txtconfcontraseña.Size = New System.Drawing.Size(164, 20)
+        Me.txtconfcontraseña.TabIndex = 4
         '
         'btnAceptar
         '
@@ -109,8 +109,8 @@ Partial Class frmcrearcontraseña
         Me.ControlBox = False
         Me.Controls.Add(Me.btnCancelar)
         Me.Controls.Add(Me.btnAceptar)
-        Me.Controls.Add(Me.TextBox2)
-        Me.Controls.Add(Me.TextBox1)
+        Me.Controls.Add(Me.txtconfcontraseña)
+        Me.Controls.Add(Me.txtcontraseña)
         Me.Controls.Add(Me.lblconfcontraseña)
         Me.Controls.Add(Me.lblcontraseña)
         Me.Controls.Add(Me.lblmensaje)
@@ -126,8 +126,8 @@ Partial Class frmcrearcontraseña
     Friend WithEvents lblmensaje As System.Windows.Forms.Label
     Friend WithEvents lblcontraseña As System.Windows.Forms.Label
     Friend WithEvents lblconfcontraseña As System.Windows.Forms.Label
-    Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
-    Friend WithEvents TextBox2 As System.Windows.Forms.TextBox
+    Friend WithEvents txtcontraseña As System.Windows.Forms.TextBox
+    Friend WithEvents txtconfcontraseña As System.Windows.Forms.TextBox
     Friend WithEvents btnAceptar As System.Windows.Forms.Button
     Friend WithEvents btnCancelar As System.Windows.Forms.Button
 End Class

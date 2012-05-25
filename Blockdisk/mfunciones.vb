@@ -21,7 +21,6 @@ Module mfunciones
 
     'Funcion para el Encriptado de Cadenas de Texto
     Private Function Encriptar(ByVal texto As String) As String
-
         If Trim(texto) = "" Then
             Encriptar = ""
         Else
@@ -34,6 +33,7 @@ Module mfunciones
         Return Encriptar
     End Function
 
+    'Valida si existen los registros, han sido modificados o eliminados
     Public Sub ValRegistros()
         'Valida Si existe el registro BCDK donde iran las configuraciones y contraseña
         Dim vbcdkReg As Microsoft.Win32.RegistryKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE\\bckd\\cfg", True)

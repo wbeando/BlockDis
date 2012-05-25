@@ -64,9 +64,9 @@ Namespace My
     Friend Module MySettingsProperty
         
         <Global.System.ComponentModel.Design.HelpKeywordAttribute("My.Settings")>  _
-        Friend ReadOnly Property Settings() As Global.Blockdisk.My.MySettings
+        Friend ReadOnly Property Settings() As Global.Blockdis.My.MySettings
             Get
-                Return Global.Blockdisk.My.MySettings.Default
+                Return Global.Blockdis.My.MySettings.Default
             End Get
         End Property
     End Module

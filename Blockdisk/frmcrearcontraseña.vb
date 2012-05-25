@@ -1,5 +1,19 @@
 ﻿Public Class frmcrearcontraseña
 
+#Region "Asignar contraseña"
+
+    Private Sub RegistrarContra()
+        If txtconfcontraseña.Text = txtconfcontraseña.Text or Then
+            txtconfcontraseña.BackColor = Color.LightYellow
+            txtcontraseña.BackColor = Color.LightYellow
+        Else
+            txtconfcontraseña.BackColor = Color.Red
+            txtcontraseña.BackColor = Color.Red
+        End If
+
+    End Sub
+#End Region
+
 #Region "Cerrar aplicacion"
     Private Sub btnCancelar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCancelar.Click
         If MsgBox("Debe ingresar una contraseña para activar Blocdisk. Si desea cerrar el programa sin configurar haga click en Si caso contrario haga click en No", MsgBoxStyle.YesNo, "Esta cerrando la aplicación sin ingresar la contraseña") = MsgBoxResult.Yes Then
@@ -9,7 +23,8 @@
 #End Region
 
     Private Sub btnAceptar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAceptar.Click
-        CrearRegApp()
+        'CrearRegApp()
+
         MsgBox("Aun esta en desarrollo ^^")
     End Sub
 

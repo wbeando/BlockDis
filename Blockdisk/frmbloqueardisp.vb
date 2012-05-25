@@ -15,7 +15,7 @@ Public Class frmbloqueardisp
         vRegCD = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("System\\CurrentControlSet\\services\\cdrom", True)
         vRegusb = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("System\\CurrentControlSet\\services\\USBSTOR", True)
         If vRegCD Is Nothing Or vRegusb Is Nothing Then
-            MsgBox("No se ha encontrado el registro para algunos dispositivos", MsgBoxStyle.Information, "Registro")
+            MsgBox("No se ha encontrado el registro para los dispositivos", MsgBoxStyle.Information, "Registro")
             Me.Close()
             ' liberar variables usadas de memoria
             vRegCD = Nothing
@@ -30,9 +30,9 @@ Public Class frmbloqueardisp
     'Donde:
     ' 1 ==> verificación
     ' 2 ==> modificar
-    ' ? 3 ==> consultar
+    ' 3 ==> ?
 
-    Private Sub RevCDROM(ByVal vAccion As Integer)
+    Private Sub RevCDROM(ByVal vAccion As Integer) 'Muestra el estado del registro para Unidades Opticas 
         Dim vTextCdrom As String = ""
         'MsgBox("The value is " & readValue)
         Select Case vValorCD
@@ -45,7 +45,7 @@ Public Class frmbloqueardisp
                         My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\cdrom", "start", "4", Microsoft.Win32.RegistryValueKind.DWord)
                         vTextCdrom = "UNIDAD CD/DVD Desactivado"
                 End Select
-            Case 4 'Deshabilitado
+            Case 4 'Deshabilitado   
                 Select Case vAccion
                     Case 1
                         vTextCdrom = "UNIDAD CD/DVD Desactivado"
