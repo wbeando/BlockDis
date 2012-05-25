@@ -1,20 +1,39 @@
 ﻿Public Class frmcrearcontraseña
 
+    Function Compararcontraseña(ByVal contraseña As String, ByVal confirmar As String) As Boolean
+        Dim comparacion As Boolean
+        Dim campovacio As Boolean
+        Dim tamañocontra As Boolean
+        Dim X As Boolean
+        If contraseña = confirmar Then comparacion = True Else comparacion = False
+        If contraseña Is Nothing Or confirmar Is Nothing Then campovacio = False Else campovacio = True
+        If contraseña.Length >= 5 Or confirmar.Length >= 5 Then tamañocontra = True Else tamañocontra = False
+        If comparacion And campovacio And tamañocontra Then X = True
+
+        Return X
+
+    End Function
+
 #Region "Asignar contraseña"
 
     Sub RegistrarContra()
-        If txtcontraseña.Text.CompareTo(txtconfcontraseña.Text) = 0 Then 'COMPARA LAS CADENAS DE TEXTO DE CONTRASEÑA Y CONFIRMAR CONTRASEÑA
-            txtconfcontraseña.BackColor = Color.LightYellow
-            txtcontraseña.BackColor = Color.LightYellow
+        If Compararcontraseña(txtcontraseña.Text, txtconfcontraseña.Text) = True Then
+            MsgBox("ok")
         Else
-            txtconfcontraseña.BackColor = Color.Red
-            txtcontraseña.BackColor = Color.Red
+            MsgBox("La contraseña no coinciden,dejaste en blanco algun dato o la contraseña es menor a 5 caracteres. Intenta ingresar las contraseñas nuevamente.", MsgBoxStyle.Information, "Registro contraseña")
+            Exit Sub
         End If
-
-        'If txtconfcontraseña.Text = txtconfcontraseña.Text Then
-
+        'If txtcontraseña.Text.CompareTo(txtconfcontraseña.Text) = 1  Then 'COMPARA LAS CADENAS DE TEXTO DE CONTRASEÑA y CONFIRMAR CONTRASEÑA. ADEMAS VERIFICA SI LAS CAJAS DE TEXTO ESTAN VACIAS
+        '    txtconfcontraseña.BackColor = Color.Red
+        '    txtcontraseña.BackColor = Color.Red
+        '    txtconfcontraseña.Clear()
+        '    txtcontraseña.Clear()
+        '    txtcontraseña.Focus()
+        '    MsgBox("La contraseña no coinciden o has dejado en blanco algun campo, intenta ingresar las contraseñas nuevamente.", vbBack, "Registro contraseña")
+        '    Exit Sub
         'Else
-
+        '    txtconfcontraseña.BackColor = Color.Yellow
+        '    txtcontraseña.BackColor = Color.Yellow
         'End If
 
     End Sub
