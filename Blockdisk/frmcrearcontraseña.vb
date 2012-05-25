@@ -9,7 +9,7 @@
         If contraseña Is Nothing Or confirmar Is Nothing Then campovacio = False Else campovacio = True
         If contraseña.Length >= 5 Or confirmar.Length >= 5 Then tamañocontra = True Else tamañocontra = False
         If comparacion And campovacio And tamañocontra Then X = True
-
+        'ss
         Return X
 
     End Function
