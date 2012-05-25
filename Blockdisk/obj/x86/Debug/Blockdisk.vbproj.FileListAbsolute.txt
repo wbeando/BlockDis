@@ -51,3 +51,6 @@ H:\BlockDisk\Blockdisk\obj\x86\Debug\GenerateResource.write.1.tlog
 G:\BlockDisk\Blockdisk\obj\x86\Debug\Blockdisk.exe
 G:\BlockDisk\Blockdisk\obj\x86\Debug\Blockdisk.xml
 G:\BlockDisk\Blockdisk\obj\x86\Debug\Blockdisk.pdb
+D:\HelpDesk\BlockDis\Blockdisk\obj\x86\Debug\Blockdisk.exe
+D:\HelpDesk\BlockDis\Blockdisk\obj\x86\Debug\Blockdisk.xml
+D:\HelpDesk\BlockDis\Blockdisk\obj\x86\Debug\Blockdisk.pdb

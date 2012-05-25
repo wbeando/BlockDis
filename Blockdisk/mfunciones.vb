@@ -82,7 +82,7 @@ Module mfunciones
     End Sub
 
 
-    'Se verificara que el registro de windows para la contraseña exist caso contrario se creara dicho registro
+    'Se verificara que el registro de windows para la contraseña existe caso contrario se creara dicho registro
     'con el nombre encriptado. Se recuerda que los nombres de los registros estaran encriptados para evitar posibles modificaciones
     'del usuario.
     Private Sub RevContraseña()

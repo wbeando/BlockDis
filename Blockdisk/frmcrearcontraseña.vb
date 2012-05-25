@@ -14,7 +14,7 @@
     End Sub
 
     Private Sub frmcrearcontraseña_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
-        ''MessageBox.Show(e.CloseReason.ToString()) 'Mostramos el motivo de cierre
+        'MessageBox.Show(e.CloseReason.ToString()) 'Mostramos el motivo de cierre
         'If Not e.CloseReason = CloseReason.WindowsShutDown Then 'Si no es por motivo de cierre de sistema
         '    e.Cancel = True 'Cancelamos el cierre
         'End If
