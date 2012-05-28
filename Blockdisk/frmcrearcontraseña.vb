@@ -18,8 +18,8 @@
         Dim vEncripwd As String = Nothing
         If Compararcontraseña(txtcontraseña.Text, txtconfcontraseña.Text) = True Then
             MsgBox("ok")
-            vEncripwd = Encriptar(txtcontraseña.Text)
-            My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\install\", "state", "0", Microsoft.Win32.RegistryValueKind.DWord)
+            vEncripwd = Encriptar(AlgoritmoDeEncriptacion.MD5, txtcontraseña.Text, 3, 3)
+            ' My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\install\", "pwd", "0", Microsoft.Win32.RegistryValueKind.DWord)
         Else
             MsgBox("La contraseña no coinciden,dejaste en blanco algun dato o la contraseña es menor a 5 caracteres. Intenta ingresar las contraseñas nuevamente.", MsgBoxStyle.Information, "Registro contraseña")
             Exit Sub
@@ -43,7 +43,7 @@
 #Region "Cerrar aplicacion"
     Private Sub btnCancelar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCancelar.Click
         If MsgBox("Debe ingresar una contraseña para activar Blocdisk. Si desea cerrar el programa sin configurar haga click en Si caso contrario haga click en No", MsgBoxStyle.YesNo, "Esta cerrando la aplicación sin ingresar la contraseña") = MsgBoxResult.Yes Then
-            End
+            Close()
         End If
     End Sub
 #End Region
@@ -61,5 +61,9 @@
         'End If
     End Sub
 
+
+    Private Sub frmcrearcontraseña_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+
+    End Sub
 End Class
 

@@ -9,32 +9,15 @@ Public Class frmbloqueardisp
     '* regVersion =     '*Microsoft.Win32.Registry.CurrentUser.CreateSubKey("SOFTWARE\\Microsoft\\TestApp\\1.0")
     '* End If
     '******************************************
-    Private Sub RevisarReg()
-        Dim vRegusb As Microsoft.Win32.RegistryKey
-        Dim vRegCD As Microsoft.Win32.RegistryKey
-        vRegCD = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("System\\CurrentControlSet\\services\\cdrom", True)
-        vRegusb = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("System\\CurrentControlSet\\services\\USBSTOR", True)
-        If vRegCD Is Nothing Or vRegusb Is Nothing Then
-            MsgBox("No se ha encontrado el registro para los dispositivos", MsgBoxStyle.Information, "Registro")
-            Me.Close()
-            ' liberar variables usadas de memoria
-            vRegCD = Nothing
-            vRegusb = Nothing
-        Else
-            MsgBox("Si puedes proseguir")
-            RevCDROM(1)
-            RevUSB(1)
-        End If
-    End Sub
+    
 
     'Donde:
     ' 1 ==> verificación
     ' 2 ==> modificar
     ' 3 ==> ?
 
-    Private Sub RevCDROM(ByVal vAccion As Integer) 'Muestra el estado del registro para Unidades Opticas 
+    Public Sub RevCDROM(ByVal vAccion As Integer) 'Muestra el estado del registro para Unidades Opticas 
         Dim vTextCdrom As String = ""
-        'MsgBox("The value is " & readValue)
         Select Case vValorCD
             Case 2
             Case 3 'Habilitado
@@ -57,7 +40,7 @@ Public Class frmbloqueardisp
         Me.btnCDROM.Text = vTextCdrom
     End Sub
 
-    Private Sub RevUSB(ByVal vAccion As Integer)
+    Public Sub RevUSB(ByVal vAccion As Integer)
         Dim vTextusb As String = ""
         Select Case vValorUSB
             Case 2

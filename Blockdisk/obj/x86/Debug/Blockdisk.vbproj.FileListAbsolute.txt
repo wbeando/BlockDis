@@ -77,3 +77,6 @@ E:\ProyectoX\BlockDisk\blockdis\Blockdisk\obj\x86\Debug\Blockdis.frmcrearcontras
 E:\ProyectoX\BlockDisk\blockdis\Blockdisk\obj\x86\Debug\Blockdis.Resources.resources
 E:\ProyectoX\BlockDisk\blockdis\Blockdisk\obj\x86\Debug\GenerateResource.read.1.tlog
 E:\ProyectoX\BlockDisk\blockdis\Blockdisk\obj\x86\Debug\GenerateResource.write.1.tlog
+D:\HelpDesk\BlockDis\Blockdisk\bin\Debug\Blockdis.exe.config
+D:\HelpDesk\BlockDis\Blockdisk\obj\x86\Debug\ResGen.read.1.tlog
+D:\HelpDesk\BlockDis\Blockdisk\obj\x86\Debug\ResGen.write.1.tlog

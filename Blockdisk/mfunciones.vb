@@ -1,5 +1,6 @@
 ﻿Imports System.Security.Cryptography
 Imports System.Text
+Imports System.IO
 
 Module mfunciones
 
@@ -9,34 +10,13 @@ Module mfunciones
 
     ' Se reasigna los nuevos valores despues de la actualización
     ' TIENE QUE SER REVISADO. POSIBLEMENTE TOME LOS VALORES DE LA VERIFICACION DEL ARCHIVO
-    Public Sub Reasignarvalores()
-        vValorUSB = My.Computer.Registry.GetValue("HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\USBSTOR", "start", Nothing)
-        vValorCD = My.Computer.Registry.GetValue("HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\cdrom", "start", Nothing)
-    End Sub
-
-    'Variables usadas para la encriptación MD5
-    Private des As New TripleDESCryptoServiceProvider 'Algorithmo TripleDES
-    Private hashmd5 As New MD5CryptoServiceProvider 'objeto md5
-    Private myKey As String '= "MyKey2012" 'Clave secreta(puede alterarse)
-
-    'Funcion para el Encriptado de Cadenas de Texto
-    Public Function Encriptar(ByVal texto As String) As String
-        If Trim(texto) = "" Then
-            Encriptar = ""
-        Else
-            des.Key = hashmd5.ComputeHash((New UnicodeEncoding).GetBytes(myKey))
-            des.Mode = CipherMode.ECB
-            Dim encrypt As ICryptoTransform = des.CreateEncryptor()
-            Dim buff() As Byte = UnicodeEncoding.ASCII.GetBytes(texto)
-            Encriptar = Convert.ToBase64String(encrypt.TransformFinalBlock(buff, 0, buff.Length))
-        End If
-        Return Encriptar
-    End Function
+    '*
 
     'Valida si existen los registros, han sido modificados o eliminados
     Public Sub ValRegistros()
         'Valida Si existe el registro BCDK donde iran las configuraciones y contraseña
         Dim vbcdkReg As Microsoft.Win32.RegistryKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE\\bckd\\cfg", True)
+
         'Valida Si existe el registro MYDEVICES donde se guardara una copia del estado de los dispositivos asi evitar las modificaciones 
         'manuales en el registro de windows y verifica si la contraseña no ha sido modificada o eliminada.
         Dim vmydevicesReg As Microsoft.Win32.RegistryKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE\\mydevices", True)
@@ -44,8 +24,9 @@ Module mfunciones
         'Verifica si el registro INSTALL existe asi validar el ingreso de la contraseña en el primer uso de la aplicacion.
         Dim vInstallrev As Microsoft.Win32.RegistryKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE\\install", True)
 
-        Dim vInstall As Integer 'Variable que almacena el valor de estado si es la primera vez que se ejecuta(0) o si ya tiene 
-        'agregada la contraseña
+        'Variable que almacena el valor de estado si es la primera vez que se ejecuta(0) o si ya tiene agregada la contraseña
+        Dim vInstall As Integer
+
         If vInstallrev Is Nothing Then
             My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\install\", "state", "0", Microsoft.Win32.RegistryValueKind.DWord)
         Else
@@ -62,7 +43,6 @@ Module mfunciones
                     End If
             End Select
         End If
-        
     End Sub
 
     'Verifica si existe el registro caso contrario lo creara
@@ -71,16 +51,40 @@ Module mfunciones
         If vApp Is Nothing Then
             My.Computer.Registry.LocalMachine.CreateSubKey("SOFTWARE\bckd\cfg", Microsoft.Win32.RegistryKeyPermissionCheck.ReadWriteSubTree)
             My.Computer.Registry.LocalMachine.CreateSubKey("SOFTWARE\mydevices\", Microsoft.Win32.RegistryKeyPermissionCheck.ReadWriteSubTree)
-            'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\bckd\cfg", "ruta", Application.ExecutablePath, Microsoft.Win32.RegistryValueKind.String)
             My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\bckd\cfg", "pswd", "", Microsoft.Win32.RegistryValueKind.String)
             My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\mydevices\", "cdrom", "0", Microsoft.Win32.RegistryValueKind.DWord)
             My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\mydevices\", "usbstor", "0", Microsoft.Win32.RegistryValueKind.DWord)
             My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\mydevices\", "valpswd", "", Microsoft.Win32.RegistryValueKind.String)
-
+            'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\bckd\cfg", "ruta", Application.ExecutablePath, Microsoft.Win32.RegistryValueKind.String)
         End If
         'vApp = Nothing
     End Sub
 
+
+    Public Sub Reasignarvalores()
+        vValorUSB = My.Computer.Registry.GetValue("HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\USBSTOR", "start", Nothing)
+        vValorCD = My.Computer.Registry.GetValue("HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\cdrom", "start", Nothing)
+    End Sub
+
+    
+
+    Public Sub RevisarReg()
+        Dim vRegusb As Microsoft.Win32.RegistryKey
+        Dim vRegCD As Microsoft.Win32.RegistryKey
+        vRegCD = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("System\\CurrentControlSet\\services\\cdrom", True)
+        vRegusb = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("System\\CurrentControlSet\\services\\USBSTOR", True)
+        If vRegCD Is Nothing Or vRegusb Is Nothing Then
+            MsgBox("No se ha encontrado el registro para los dispositivos", MsgBoxStyle.Information, "Registro")
+            End
+            ' liberar variables usadas de memoria
+            vRegCD = Nothing
+            vRegusb = Nothing
+        Else
+            MsgBox("Si puedes proseguir")
+            frmbloqueardisp.RevCDROM(1)
+            frmbloqueardisp.RevUSB(1)
+        End If
+    End Sub
 
     'Se verificara que el registro de windows para la contraseña existe caso contrario se creara dicho registro
     'con el nombre encriptado. Se recuerda que los nombres de los registros estaran encriptados para evitar posibles modificaciones
@@ -90,6 +94,54 @@ Module mfunciones
     End Sub
 
 
+    Public Enum AlgoritmoDeEncriptacion
+        MD5 = 0
+        SHA = 1
+        TRIPLE_DESC
+    End Enum
+
+    Public Function Encriptar(ByVal valAlgoritmo As AlgoritmoDeEncriptacion, ByVal strCadena As String, Optional ByVal valIV As Byte = 0, Optional ByVal valKey As Byte = 0) As String
+        Dim Codificacion As New UTF8Encoding
+        Select Case valAlgoritmo
+            Case AlgoritmoDeEncriptacion.MD5
+                Dim md5Hasher As MD5 = MD5.Create()
+                Dim data As Byte() = md5Hasher.ComputeHash(Encoding.Default.GetBytes(
+                strCadena))
+                Dim sBuilder As New StringBuilder()
+                Dim i As Integer
+                For i = 0 To data.Length - 1
+                    sBuilder.Append(data(i).ToString("x2"))
+                Next i
+                Return sBuilder.ToString()
+            Case AlgoritmoDeEncriptacion.SHA
+                Dim data() As Byte = Codificacion.GetBytes(strCadena)
+                Dim resultado() As Byte
+                Dim sha As New SHA1CryptoServiceProvider()
+                resultado = sha.ComputeHash(data)
+                Dim sb As New StringBuilder
+                For i As Integer = 0 To resultado.Length - 1
+                    If resultado(i) < 16 Then
+                        sb.Append("0")
+                    End If
+                    sb.Append(resultado(i).ToString("x"))
+                Next
+                Return sb.ToString() '<-
+            Case AlgoritmoDeEncriptacion.TRIPLE_DESC
+                Dim message As Byte() = Codificacion.GetBytes(strCadena)
+                Dim criptoProvider As New TripleDESCryptoServiceProvider
+                Dim criptoTransform As ICryptoTransform = criptoProvider.
+                CreateEncryptor(criptoProvider.Key, criptoProvider.IV)
+                Dim memorystream As New MemoryStream
+                Dim cryptoStream As New CryptoStream(memorystream, criptoTransform,
+                CryptoStreamMode.Write)
+                cryptoStream.FlushFinalBlock()
+                Dim encriptado As Byte() = memorystream.ToArray
+                Dim cadenaEncriptada = Codificacion.GetString(encriptado)
+                Return cadenaEncriptada
+            Case Else
+                Return ""
+        End Select
+    End Function
 End Module
 
 'Public Class Form1

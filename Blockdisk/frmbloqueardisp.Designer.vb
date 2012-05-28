@@ -56,7 +56,7 @@ Partial Class frmbloqueardisp
         Me.lblmensaje.Size = New System.Drawing.Size(266, 41)
         Me.lblmensaje.TabIndex = 2
         Me.lblmensaje.Text = "Despues de modificar estas opciones el equipo se reiniciara. Asegurese de guardar" & _
-            " todos sus archivos."
+    " todos sus archivos."
         '
         'frmbloqueardisp
         '
