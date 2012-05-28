@@ -20,7 +20,7 @@ Module mfunciones
     Private myKey As String '= "MyKey2012" 'Clave secreta(puede alterarse)
 
     'Funcion para el Encriptado de Cadenas de Texto
-    Private Function Encriptar(ByVal texto As String) As String
+    Public Function Encriptar(ByVal texto As String) As String
         If Trim(texto) = "" Then
             Encriptar = ""
         Else

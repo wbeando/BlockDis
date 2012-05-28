@@ -9,16 +9,17 @@
         If contraseña Is Nothing Or confirmar Is Nothing Then campovacio = False Else campovacio = True
         If contraseña.Length >= 5 Or confirmar.Length >= 5 Then tamañocontra = True Else tamañocontra = False
         If comparacion And campovacio And tamañocontra Then X = True
-        'ss
+        'Regresa el valor true si todos las verificiaciones son verdaderas
         Return X
-
     End Function
 
 #Region "Asignar contraseña"
-
     Sub RegistrarContra()
+        Dim vEncripwd As String = Nothing
         If Compararcontraseña(txtcontraseña.Text, txtconfcontraseña.Text) = True Then
             MsgBox("ok")
+            vEncripwd = Encriptar(txtcontraseña.Text)
+            My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\install\", "state", "0", Microsoft.Win32.RegistryValueKind.DWord)
         Else
             MsgBox("La contraseña no coinciden,dejaste en blanco algun dato o la contraseña es menor a 5 caracteres. Intenta ingresar las contraseñas nuevamente.", MsgBoxStyle.Information, "Registro contraseña")
             Exit Sub
