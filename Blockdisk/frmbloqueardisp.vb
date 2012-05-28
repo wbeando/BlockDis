@@ -9,13 +9,10 @@ Public Class frmbloqueardisp
     '* regVersion =     '*Microsoft.Win32.Registry.CurrentUser.CreateSubKey("SOFTWARE\\Microsoft\\TestApp\\1.0")
     '* End If
     '******************************************
-    
-
     'Donde:
     ' 1 ==> verificación
     ' 2 ==> modificar
     ' 3 ==> ?
-
     Public Sub RevCDROM(ByVal vAccion As Integer) 'Muestra el estado del registro para Unidades Opticas 
         Dim vTextCdrom As String = ""
         Select Case vValorCD
@@ -28,7 +25,7 @@ Public Class frmbloqueardisp
                         My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\cdrom", "start", "4", Microsoft.Win32.RegistryValueKind.DWord)
                         vTextCdrom = "UNIDAD CD/DVD Desactivado"
                 End Select
-            Case 4 'Deshabilitado   
+            Case 4 'Deshabilitado
                 Select Case vAccion
                     Case 1
                         vTextCdrom = "UNIDAD CD/DVD Desactivado"
@@ -78,5 +75,9 @@ Public Class frmbloqueardisp
     Private Sub btnCDROM_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCDROM.Click
         Reasignarvalores()
         RevCDROM(2)
+    End Sub
+
+    Private Sub btnaplicar_Click(sender As System.Object, e As System.EventArgs) Handles btnaplicar.Click
+        Process.Start("shutdown.exe", " -s -t 0 -f")
     End Sub
 End Class

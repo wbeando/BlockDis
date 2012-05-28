@@ -25,6 +25,7 @@ Partial Class frmbloqueardisp
         Me.btnUSB = New System.Windows.Forms.Button()
         Me.btnCDROM = New System.Windows.Forms.Button()
         Me.lblmensaje = New System.Windows.Forms.Label()
+        Me.btnaplicar = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'btnUSB
@@ -58,12 +59,23 @@ Partial Class frmbloqueardisp
         Me.lblmensaje.Text = "Despues de modificar estas opciones el equipo se reiniciara. Asegurese de guardar" & _
     " todos sus archivos."
         '
+        'btnaplicar
+        '
+        Me.btnaplicar.Font = New System.Drawing.Font("Segoe UI", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnaplicar.Location = New System.Drawing.Point(140, 174)
+        Me.btnaplicar.Name = "btnaplicar"
+        Me.btnaplicar.Size = New System.Drawing.Size(139, 37)
+        Me.btnaplicar.TabIndex = 3
+        Me.btnaplicar.Text = "Aplicar Cambios"
+        Me.btnaplicar.UseVisualStyleBackColor = True
+        '
         'frmbloqueardisp
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(291, 191)
+        Me.ClientSize = New System.Drawing.Size(284, 213)
         Me.ControlBox = False
+        Me.Controls.Add(Me.btnaplicar)
         Me.Controls.Add(Me.lblmensaje)
         Me.Controls.Add(Me.btnCDROM)
         Me.Controls.Add(Me.btnUSB)
@@ -76,5 +88,6 @@ Partial Class frmbloqueardisp
     Friend WithEvents btnUSB As System.Windows.Forms.Button
     Friend WithEvents btnCDROM As System.Windows.Forms.Button
     Friend WithEvents lblmensaje As System.Windows.Forms.Label
+    Friend WithEvents btnaplicar As System.Windows.Forms.Button
 
 End Class

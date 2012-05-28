@@ -10,7 +10,6 @@ Module mfunciones
 
     ' Se reasigna los nuevos valores despues de la actualización
     ' TIENE QUE SER REVISADO. POSIBLEMENTE TOME LOS VALORES DE LA VERIFICACION DEL ARCHIVO
-    '*
 
     'Valida si existen los registros, han sido modificados o eliminados
     Public Sub ValRegistros()
@@ -57,7 +56,7 @@ Module mfunciones
             My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\mydevices\", "valpswd", "", Microsoft.Win32.RegistryValueKind.String)
             'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\bckd\cfg", "ruta", Application.ExecutablePath, Microsoft.Win32.RegistryValueKind.String)
         End If
-        'vApp = Nothing
+        vApp = Nothing
     End Sub
 
 
@@ -66,13 +65,11 @@ Module mfunciones
         vValorCD = My.Computer.Registry.GetValue("HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\cdrom", "start", Nothing)
     End Sub
 
-    
-
     Public Sub RevisarReg()
         Dim vRegusb As Microsoft.Win32.RegistryKey
         Dim vRegCD As Microsoft.Win32.RegistryKey
-        vRegCD = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("System\\CurrentControlSet\\services\\cdrom", True)
-        vRegusb = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("System\\CurrentControlSet\\services\\USBSTOR", True)
+        vRegCD = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("HKEY_LOCAL_MACHINE\SOFTWARE\\mydevices\\cdrom", True)
+        vRegusb = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("HKEY_LOCAL_MACHINE\SOFTWARE\\mydevices\\USBSTOR", True)
         If vRegCD Is Nothing Or vRegusb Is Nothing Then
             MsgBox("No se ha encontrado el registro para los dispositivos", MsgBoxStyle.Information, "Registro")
             End
@@ -105,8 +102,7 @@ Module mfunciones
         Select Case valAlgoritmo
             Case AlgoritmoDeEncriptacion.MD5
                 Dim md5Hasher As MD5 = MD5.Create()
-                Dim data As Byte() = md5Hasher.ComputeHash(Encoding.Default.GetBytes(
-                strCadena))
+                Dim data As Byte() = md5Hasher.ComputeHash(Encoding.Default.GetBytes(strCadena))
                 Dim sBuilder As New StringBuilder()
                 Dim i As Integer
                 For i = 0 To data.Length - 1

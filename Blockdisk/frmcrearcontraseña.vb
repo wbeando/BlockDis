@@ -19,6 +19,7 @@
         If Compararcontraseña(txtcontraseña.Text, txtconfcontraseña.Text) = True Then
             MsgBox("ok")
             vEncripwd = Encriptar(AlgoritmoDeEncriptacion.MD5, txtcontraseña.Text, 3, 3)
+            MsgBox(vEncripwd)
             ' My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\install\", "pwd", "0", Microsoft.Win32.RegistryValueKind.DWord)
         Else
             MsgBox("La contraseña no coinciden,dejaste en blanco algun dato o la contraseña es menor a 5 caracteres. Intenta ingresar las contraseñas nuevamente.", MsgBoxStyle.Information, "Registro contraseña")
@@ -36,7 +37,6 @@
         '    txtconfcontraseña.BackColor = Color.Yellow
         '    txtcontraseña.BackColor = Color.Yellow
         'End If
-
     End Sub
 #End Region
 
@@ -60,7 +60,6 @@
         '    e.Cancel = True 'Cancelamos el cierre
         'End If
     End Sub
-
 
     Private Sub frmcrearcontraseña_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
 
