@@ -28,20 +28,37 @@ Module mfunciones
 
         If vInstallrev Is Nothing Then 'REVISA SI LA CLAVE INSTALL EXISTE 
             My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\install\", "state", "0", Microsoft.Win32.RegistryValueKind.DWord) 'SI NO EXISTE CREA LA CLAVE 
-        Else
-            CrearRegApp() 'SE LLAMA ESTE PROCESO
             vInstall = My.Computer.Registry.GetValue("HKEY_LOCAL_MACHINE\SOFTWARE\install\", "state", Nothing) 'OBTIENE EL VALOR DE LA CLAVE STATE
+            CrearRegApp() 'SE LLAMA ESTE PROCESO Y CREARA EL RESTO DE CLAVES
             Select Case vInstall
                 Case 0 ' INDICA QUE NO SE HA CREADO LA CONTRASEÑA Y DEBE CARGAR EL FORMULARIO CREARCONTRASEÑA
-                    frmcrearcontraseña.ShowDialog()
+
                 Case 1
-                    If vbcdkReg Is Nothing Or vmydevicesReg Is Nothing Then
+                    If vbcdkReg Is Nothing Or vmydevicesReg Is Nothing Then 'VERIFICA SI LOS CLAVES SOFTWARE\\bckd\\cfg  & SOFTWARE\\mydevices NO HAN SIDO BORRADAS
                         My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\USBSTOR", "start", "4", Microsoft.Win32.RegistryValueKind.DWord)
                         My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\cdrom", "start", "4", Microsoft.Win32.RegistryValueKind.DWord)
                         MsgBox("La aplicación ha sufrido cambios no permitidos, esto dejara bloqueado los dispositivos hasta que te pongas en contacto con soporte tecnico", MsgBoxStyle.Critical, "Registros modificados ilegalmente")
                     End If
             End Select
         End If
+
+        'If vInstallrev Is Nothing Then 'REVISA SI LA CLAVE INSTALL EXISTE 
+        '    My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\install\", "state", "0", Microsoft.Win32.RegistryValueKind.DWord) 'SI NO EXISTE CREA LA CLAVE 
+        'Else
+        '    CrearRegApp() 'SE LLAMA ESTE PROCESO
+        '    vInstall = My.Computer.Registry.GetValue("HKEY_LOCAL_MACHINE\SOFTWARE\install\", "state", Nothing) 'OBTIENE EL VALOR DE LA CLAVE STATE
+        '    Select Case vInstall
+        '        Case 0 ' INDICA QUE NO SE HA CREADO LA CONTRASEÑA Y DEBE CARGAR EL FORMULARIO CREARCONTRASEÑA
+        '            frmcrearcontraseña.ShowDialog()
+        '            frmbloqueardisp.Close()
+        '        Case 1
+        '            If vbcdkReg Is Nothing Or vmydevicesReg Is Nothing Then 'VERIFICA SI LOS CLAVES SOFTWARE\\bckd\\cfg  & SOFTWARE\\mydevices NO HAN SIDO BORRADAS
+        '                My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\USBSTOR", "start", "4", Microsoft.Win32.RegistryValueKind.DWord)
+        '                My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\cdrom", "start", "4", Microsoft.Win32.RegistryValueKind.DWord)
+        '                MsgBox("La aplicación ha sufrido cambios no permitidos, esto dejara bloqueado los dispositivos hasta que te pongas en contacto con soporte tecnico", MsgBoxStyle.Critical, "Registros modificados ilegalmente")
+        '            End If
+        '    End Select
+        'End If
     End Sub
 
     'Verifica si existe el registro caso contrario lo creara
@@ -67,7 +84,7 @@ Module mfunciones
         If vRegCD Is Nothing Or vRegusb Is Nothing Then
             MsgBox("No se ha encontrado el registro para los dispositivos", MsgBoxStyle.Information, "Registro")
             End
-            ' liberar variables usadas de memoria
+            'LIMPIAR VARIABLES
             vRegCD = Nothing
             vRegusb = Nothing
         Else

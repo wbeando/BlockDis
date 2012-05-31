@@ -9,7 +9,7 @@ Public Class frmbloqueardisp
     '* regVersion =     '*Microsoft.Win32.Registry.CurrentUser.CreateSubKey("SOFTWARE\\Microsoft\\TestApp\\1.0")
     '* End If
     '******************************************
-    'Donde:
+    'Donde valor de vAccion es:
     ' 1 ==> verificación
     ' 2 ==> modificar
     ' 3 ==> ?
@@ -64,7 +64,7 @@ Public Class frmbloqueardisp
 
     Private Sub frmbloqueardisp_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         'RevisarReg()
-        ValRegistros()
+        'ValRegistros()
     End Sub
 
     Private Sub btnUSB_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUSB.Click
