@@ -48,7 +48,7 @@
     Private Sub btnAceptar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAceptar.Click
         'CrearRegApp()
         RegistrarContra()
-        MsgBox("Aun esta en desarrollo ^^")
+        'MsgBox("Aun esta en desarrollo ^^")
     End Sub
 
 #Region "Cerrar aplicacion"
