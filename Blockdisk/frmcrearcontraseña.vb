@@ -17,14 +17,16 @@
     Sub RegistrarContra()
         Dim vEncripwd As String = Nothing
         If Compararcontraseña(txtcontraseña.Text, txtconfcontraseña.Text) = True Then
-            MsgBox("ok")
+            'MsgBox("ok")
             vEncripwd = Encriptar(AlgoritmoDeEncriptacion.MD5, txtcontraseña.Text, 3, 3)
             MsgBox(vEncripwd)
-            ' My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\install\", "pwd", "0", Microsoft.Win32.RegistryValueKind.DWord)
+            My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\bckd\cfg\", "pswd", vEncripwd, Microsoft.Win32.RegistryValueKind.String)
+            My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\mydevices\", "vaslpswd", vEncripwd, Microsoft.Win32.RegistryValueKind.String)
         Else
-            MsgBox("La contraseña no coinciden,dejaste en blanco algun dato o la contraseña es menor a 5 caracteres. Intenta ingresar las contraseñas nuevamente.", MsgBoxStyle.Information, "Registro contraseña")
+            MsgBox("La contraseña no coinciden, dejaste en blanco algun campo o la contraseña es menor a 5 caracteres. Intenta ingresar la contraseña nuevamente.", MsgBoxStyle.Information, "Registro contraseña")
             Exit Sub
         End If
+
         'If txtcontraseña.Text.CompareTo(txtconfcontraseña.Text) = 1  Then 'COMPARA LAS CADENAS DE TEXTO DE CONTRASEÑA y CONFIRMAR CONTRASEÑA. ADEMAS VERIFICA SI LAS CAJAS DE TEXTO ESTAN VACIAS
         '    txtconfcontraseña.BackColor = Color.Red
         '    txtcontraseña.BackColor = Color.Red
@@ -40,6 +42,12 @@
     End Sub
 #End Region
 
+    Private Sub btnAceptar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAceptar.Click
+        'CrearRegApp()
+        RegistrarContra()
+        MsgBox("Aun esta en desarrollo ^^")
+    End Sub
+
 #Region "Cerrar aplicacion"
     Private Sub btnCancelar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCancelar.Click
         If MsgBox("Debe ingresar una contraseña para activar Blocdisk. Si desea cerrar el programa sin configurar haga click en Si caso contrario haga click en No", MsgBoxStyle.YesNo, "Esta cerrando la aplicación sin ingresar la contraseña") = MsgBoxResult.Yes Then
@@ -47,12 +55,6 @@
         End If
     End Sub
 #End Region
-
-    Private Sub btnAceptar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAceptar.Click
-        'CrearRegApp()
-        RegistrarContra()
-        MsgBox("Aun esta en desarrollo ^^")
-    End Sub
 
     Private Sub frmcrearcontraseña_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
         'MessageBox.Show(e.CloseReason.ToString()) 'Mostramos el motivo de cierre

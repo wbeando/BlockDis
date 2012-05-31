@@ -48,28 +48,22 @@ Module mfunciones
     Public Sub CrearRegApp()
         Dim vApp As Microsoft.Win32.RegistryKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE\\bckd\\cfg", True)
         If vApp Is Nothing Then
-            My.Computer.Registry.LocalMachine.CreateSubKey("SOFTWARE\bckd\cfg", Microsoft.Win32.RegistryKeyPermissionCheck.ReadWriteSubTree)
+            My.Computer.Registry.LocalMachine.CreateSubKey("SOFTWARE\bckd\cfg\", Microsoft.Win32.RegistryKeyPermissionCheck.ReadWriteSubTree)
             My.Computer.Registry.LocalMachine.CreateSubKey("SOFTWARE\mydevices\", Microsoft.Win32.RegistryKeyPermissionCheck.ReadWriteSubTree)
-            My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\bckd\cfg", "pswd", "", Microsoft.Win32.RegistryValueKind.String)
             My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\mydevices\", "cdrom", "0", Microsoft.Win32.RegistryValueKind.DWord)
             My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\mydevices\", "usbstor", "0", Microsoft.Win32.RegistryValueKind.DWord)
+            My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\bckd\cfg\", "pswd", "", Microsoft.Win32.RegistryValueKind.String)
             My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\mydevices\", "valpswd", "", Microsoft.Win32.RegistryValueKind.String)
             'My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\bckd\cfg", "ruta", Application.ExecutablePath, Microsoft.Win32.RegistryValueKind.String)
         End If
         vApp = Nothing
     End Sub
 
-
-    Public Sub Reasignarvalores()
-        vValorUSB = My.Computer.Registry.GetValue("HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\USBSTOR", "start", Nothing)
-        vValorCD = My.Computer.Registry.GetValue("HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\cdrom", "start", Nothing)
-    End Sub
-
     Public Sub RevisarReg()
         Dim vRegusb As Microsoft.Win32.RegistryKey
         Dim vRegCD As Microsoft.Win32.RegistryKey
-        vRegCD = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("HKEY_LOCAL_MACHINE\SOFTWARE\\mydevices\\cdrom", True)
-        vRegusb = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("HKEY_LOCAL_MACHINE\SOFTWARE\\mydevices\\USBSTOR", True)
+        vRegCD = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE\\mydevices\\cdrom", True)
+        vRegusb = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE\\mydevices\\USBSTOR", True)
         If vRegCD Is Nothing Or vRegusb Is Nothing Then
             MsgBox("No se ha encontrado el registro para los dispositivos", MsgBoxStyle.Information, "Registro")
             End
@@ -81,6 +75,11 @@ Module mfunciones
             frmbloqueardisp.RevCDROM(1)
             frmbloqueardisp.RevUSB(1)
         End If
+    End Sub
+
+    Public Sub Reasignarvalores()
+        vValorUSB = My.Computer.Registry.GetValue("HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\USBSTOR", "start", Nothing)
+        vValorCD = My.Computer.Registry.GetValue("HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\cdrom", "start", Nothing)
     End Sub
 
     'Se verificara que el registro de windows para la contraseña existe caso contrario se creara dicho registro

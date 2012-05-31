@@ -78,6 +78,6 @@ Public Class frmbloqueardisp
     End Sub
 
     Private Sub btnaplicar_Click(sender As System.Object, e As System.EventArgs) Handles btnaplicar.Click
-        Process.Start("shutdown.exe", " -s -t 0 -f")
+        Process.Start("shutdown.exe", " -r -t 0 -f")
     End Sub
 End Class
