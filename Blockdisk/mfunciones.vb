@@ -13,26 +13,26 @@ Module mfunciones
 
     'Valida si existen los registros, han sido modificados o eliminados
     Public Sub ValRegistros()
-        'Valida Si existe el registro BCDK donde iran las configuraciones y contraseña
+        'Verfica si existe el registro BCDK donde iran las configuraciones y contraseña
         Dim vbcdkReg As Microsoft.Win32.RegistryKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE\\bckd\\cfg", True)
 
-        'Valida Si existe el registro MYDEVICES donde se guardara una copia del estado de los dispositivos asi evitar las modificaciones 
+        'Verfica Si existe el registro MYDEVICES donde se guardara una copia del estado de los dispositivos asi evitar las modificaciones 
         'manuales en el registro de windows y verifica si la contraseña no ha sido modificada o eliminada.
         Dim vmydevicesReg As Microsoft.Win32.RegistryKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE\\mydevices", True)
 
-        'Verifica si el registro INSTALL existe asi validar el ingreso de la contraseña en el primer uso de la aplicacion.
+        'Verfica si el registro INSTALL existe asi validar el ingreso de la contraseña en el primer uso de la aplicacion.
         Dim vInstallrev As Microsoft.Win32.RegistryKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE\\install", True)
 
         'Variable que almacena el valor de estado si es la primera vez que se ejecuta(0) o si ya tiene agregada la contraseña
         Dim vInstall As Integer
 
-        If vInstallrev Is Nothing Then
-            My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\install\", "state", "0", Microsoft.Win32.RegistryValueKind.DWord)
+        If vInstallrev Is Nothing Then 'REVISA SI LA CLAVE INSTALL EXISTE 
+            My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SOFTWARE\install\", "state", "0", Microsoft.Win32.RegistryValueKind.DWord) 'SI NO EXISTE CREA LA CLAVE 
         Else
-            CrearRegApp()
-            vInstall = My.Computer.Registry.GetValue("HKEY_LOCAL_MACHINE\SOFTWARE\install\", "state", Nothing)
+            CrearRegApp() 'SE LLAMA ESTE PROCESO
+            vInstall = My.Computer.Registry.GetValue("HKEY_LOCAL_MACHINE\SOFTWARE\install\", "state", Nothing) 'OBTIENE EL VALOR DE LA CLAVE STATE
             Select Case vInstall
-                Case 0
+                Case 0 ' INDICA QUE NO SE HA CREADO LA CONTRASEÑA Y DEBE CARGAR EL FORMULARIO CREARCONTRASEÑA
                     frmcrearcontraseña.ShowDialog()
                 Case 1
                     If vbcdkReg Is Nothing Or vmydevicesReg Is Nothing Then
@@ -45,7 +45,7 @@ Module mfunciones
     End Sub
 
     'Verifica si existe el registro caso contrario lo creara
-    Public Sub CrearRegApp()
+    Public Sub CrearRegApp() ' CREA LAS CLAVES NECESARIAS.
         Dim vApp As Microsoft.Win32.RegistryKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE\\bckd\\cfg", True)
         If vApp Is Nothing Then
             My.Computer.Registry.LocalMachine.CreateSubKey("SOFTWARE\bckd\cfg\", Microsoft.Win32.RegistryKeyPermissionCheck.ReadWriteSubTree)
