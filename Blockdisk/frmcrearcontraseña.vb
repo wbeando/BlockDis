@@ -54,7 +54,7 @@
 #Region "Cerrar aplicacion"
     Private Sub btnCancelar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCancelar.Click
         If MsgBox("Debe ingresar una contraseña para activar Blocdisk. Si desea cerrar el programa sin configurar haga click en Si caso contrario haga click en No", MsgBoxStyle.YesNo, "Esta cerrando la aplicación sin ingresar la contraseña") = MsgBoxResult.Yes Then
-            frmbloqueardisp.Close()
+            Me.Close()
         End If
     End Sub
 #End Region
@@ -64,10 +64,6 @@
         'If Not e.CloseReason = CloseReason.WindowsShutDown Then 'Si no es por motivo de cierre de sistema
         '    e.Cancel = True 'Cancelamos el cierre
         'End If
-    End Sub
-
-    Private Sub frmcrearcontraseña_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
-
     End Sub
 End Class
 
