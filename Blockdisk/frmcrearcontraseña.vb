@@ -26,6 +26,9 @@
             frmbloqueardisp.Show()
             Me.Close()
         Else
+            txtconfcontraseña.Clear()
+            txtcontraseña.Clear()
+            txtcontraseña.Focus()
             MsgBox("La contraseña no coinciden, dejaste en blanco algun campo o la contraseña es menor a 5 caracteres. Intenta ingresar la contraseña nuevamente.", MsgBoxStyle.Information, "Registro contraseña")
             Exit Sub
         End If
@@ -46,9 +49,7 @@
 #End Region
 
     Private Sub btnAceptar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAceptar.Click
-        'CrearRegApp()
         RegistrarContra()
-        'MsgBox("Aun esta en desarrollo ^^")
     End Sub
 
 #Region "Cerrar aplicacion"

@@ -42,10 +42,10 @@ AddReg:
                     My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\USBSTOR", "start", "4", Microsoft.Win32.RegistryValueKind.DWord)
                     My.Computer.Registry.SetValue("HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\cdrom", "start", "4", Microsoft.Win32.RegistryValueKind.DWord)
                     MsgBox("La aplicación ha sufrido cambios no permitidos, esto dejara bloqueado los dispositivos hasta que te pongas en contacto con soporte tecnico", MsgBoxStyle.Critical, "Registros modificados ilegalmente")
-                    frmbloqueardisp.Show()
+                    frmbloqueardisp.Hide()
                     Exit Sub
-                ElseIf Not My.Computer.Registry.GetValue("HKEY_LOCAL_MACHINE\SOFTWARE\bckd\cfg", "pswd", Nothing) Is Nothing Or Not Not My.Computer.Registry.GetValue("HKEY_LOCAL_MACHINE\SOFTWARE\bckd\cfg", "valpswd", Nothing) Is Nothing Then
-                    frmcontraseña.Show()
+                ElseIf Not My.Computer.Registry.GetValue("HKEY_LOCAL_MACHINE\SOFTWARE\bckd\cfg", "pswd", Nothing) Is Nothing Or Not My.Computer.Registry.GetValue("HKEY_LOCAL_MACHINE\SOFTWARE\bckd\cfg", "valpswd", Nothing) Is Nothing Then
+                    frmbloqueardisp.Hide()
                 End If
         End Select
         frmpresentacion.Close()
@@ -96,7 +96,6 @@ AddReg:
             vRegCD = Nothing
             vRegusb = Nothing
         Else
-            'MsgBox("Si puedes proseguir")
             frmbloqueardisp.RevCDROM(1)
             frmbloqueardisp.RevUSB(1)
         End If
